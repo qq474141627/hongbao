@@ -74,9 +74,19 @@ public class Config {
         return SharedPreferencesUtil.getIntWithDefault(mContext, KEY_WECHAT_DELAY_TIME, 0);
     }
 
+    /** 微信打开红包后延时时间*/
+    public void setWechatOpenDelayTime(int delay) {
+        SharedPreferencesUtil.saveIntWithDefault(mContext, KEY_WECHAT_DELAY_TIME, delay);
+    }
+
     /** 获取抢微信红包的模式*/
     public int getWechatMode() {
-        return SharedPreferencesUtil.getIntWithDefault(mContext, KEY_WECHAT_MODE, 0);
+        return SharedPreferencesUtil.getIntWithDefault(mContext, KEY_WECHAT_MODE, WX_MODE_0);
+    }
+
+    /** 设置抢微信红包的模式*/
+    public void setWechatMode(int model) {
+        SharedPreferencesUtil.saveIntWithDefault(mContext, KEY_WECHAT_MODE, model);
     }
 
     /** 是否启动通知栏模式*/

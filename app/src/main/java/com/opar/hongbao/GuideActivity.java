@@ -26,19 +26,19 @@ import butterknife.ButterKnife;
 
 public class GuideActivity extends BaseActivity {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+//    @BindView(R.id.toolbar)
+//    Toolbar toolbar;
     @BindView(R.id.view_pager)
     ViewPager viewPager;
 
-    private String[] imgs = new String[]{"guide_1.png", "guide_2.png", "guide_3.png", "guide_4.png", "guide_5.png"};
+    private String[] imgs = new String[]{"open_service_tips"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
         viewPager.setOffscreenPageLimit(imgs.length);
         viewPager.setAdapter(new ImageViewPagerAdapter(this));
     }
@@ -70,10 +70,11 @@ public class GuideActivity extends BaseActivity {
                         LinearLayout.LayoutParams.MATCH_PARENT);
                 imageView.setLayoutParams(params);
                 try {
-                    BitmapDrawable d = new BitmapDrawable(this.context.getAssets()
-                            .open(imgs[position]));
-                    imageView.setImageDrawable(d);
-                } catch (IOException e) {
+//                    BitmapDrawable d = new BitmapDrawable(this.context.getAssets()
+//                            .open(imgs[position]));
+//                    imageView.setImageDrawable(d);
+                    imageView.setImageResource(R.drawable.open_service_tips);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 container.addView(imageView);

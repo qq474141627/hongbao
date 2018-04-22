@@ -1,20 +1,25 @@
 package com.opar.hongbao;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.widget.SwitchCompat;
-import android.support.v7.widget.Toolbar;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.opar.hongbao.service.LuckyMoneyNotificationService;
 import com.opar.hongbao.service.LuckyMoneyService;
 import com.opar.hongbao.util.EventBusMsg;
+import com.opar.hongbao.util.ISuccessCallBack;
 import com.opar.hongbao.util.SharedPreferencesUtil;
+
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,8 +36,8 @@ import de.greenrobot.event.Subscribe;
 
 public class StartActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener{
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+//    @BindView(R.id.toolbar)
+//    Toolbar toolbar;
     @BindView(R.id.tv_total_count)
     TextView tvTotalCount;
     @BindView(R.id.tv_wechat_cout)
@@ -49,8 +54,23 @@ public class StartActivity extends BaseActivity implements CompoundButton.OnChec
     SwitchCompat switchWechat;
     @BindView(R.id.switch_qq)
     SwitchCompat switchQq;
+    @BindView(R.id.ll_wechat_mode)
+    LinearLayout llWechatMode;
+    @BindView(R.id.tv_wechat_mode)
+    TextView tvWechatMode;
+    @BindView(R.id.ll_wechat_delay)
+    LinearLayout llWechatDelay;
+    @BindView(R.id.tv_wechat_delay)
+    TextView tvWechatDelay;
+
 
     boolean changeByUser = true;
+    private final String[] WXModels = new String[] { "自动抢抢全部红包", "只自动抢单聊红包" ,"只自动抢群聊红包","只通知手动抢"};
+    private final String[] delays = new String[] { "不延迟", "延迟0.2秒" ,"延迟0.5秒","延迟1秒"};
+    private final Integer[] delayTimes = new Integer[] { 0, 200 ,500,1000};
+
+    private int selectWXModel = Config.WX_MODE_0;//当前选中的模式
+    private int selectWXDelay = 0;//当前选中的延时模式
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +78,7 @@ public class StartActivity extends BaseActivity implements CompoundButton.OnChec
         setContentView(R.layout.activity_start);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
 
         switchService.setOnCheckedChangeListener(this);
         switchNotification.setOnCheckedChangeListener(this);
@@ -83,6 +103,8 @@ public class StartActivity extends BaseActivity implements CompoundButton.OnChec
             changeByUser = false;
             switchNotification.setChecked(false);
         }
+        setWechatModel(Config.getConfig(this).getWechatMode());
+        setWechatDelay(Arrays.asList(delayTimes).indexOf(Config.getConfig(this).getWechatOpenDelayTime()));
         updateCount();
         updateEnableStatus();
     }
@@ -101,9 +123,29 @@ public class StartActivity extends BaseActivity implements CompoundButton.OnChec
     }
 
     @OnClick(R.id.tv_guide)
-    public void onClick() {
-        Intent itGuide = new Intent(getApplicationContext(), GuideActivity.class);
+    public void onGuide() {
+        Intent itGuide = new Intent(this, GuideActivity.class);
         startActivity(itGuide);
+    }
+
+    @OnClick(R.id.tv_wechat_mode)
+    public void onWechatModel() {
+        getModelDialog("请选择微信抢红包模式", WXModels, selectWXModel, new ISuccessCallBack<Integer>() {
+            @Override
+            public void onSuccess(Integer which) {
+                setWechatModel(which);
+            }
+        });
+    }
+
+    @OnClick(R.id.tv_wechat_delay)
+    public void onWechatDelay() {
+        getModelDialog("请选择微信抢红包延迟时间", delays, selectWXDelay, new ISuccessCallBack<Integer>() {
+            @Override
+            public void onSuccess(Integer which) {
+                setWechatDelay(which);
+            }
+        });
     }
 
     @Override
@@ -200,4 +242,32 @@ public class StartActivity extends BaseActivity implements CompoundButton.OnChec
                 break;
         }
     }
+
+    private void getModelDialog(String title, String[] items, int select, final ISuccessCallBack callBack){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setTitle(title);
+        builder.setSingleChoiceItems(items, select, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                callBack.onSuccess(which);
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    private void setWechatModel(int which){
+        selectWXModel = which;
+        tvWechatMode.setText(WXModels[which]);
+        Config.getConfig(this).setWechatMode(which);
+    }
+
+    private void setWechatDelay(int which){
+        selectWXDelay = which;
+        tvWechatDelay.setText(delays[which]);
+        Config.getConfig(this).setWechatOpenDelayTime(delayTimes[which]);
+    }
+
 }

@@ -41,6 +41,11 @@ public class SharedPreferencesUtil {
         return sp.getInt(key, value);
     }
 
+    public static void saveIntWithDefault(Context con, String key, int value) {
+        SharedPreferences sp = con.getSharedPreferences(FILENAME, 0);
+        sp.edit().putInt(key, value).commit();
+    }
+
     public static void saveBoolean(Context con, String key, boolean value) {
         SharedPreferences sp = con.getSharedPreferences(FILENAME, 0);
         sp.edit().putBoolean(key, value).commit();

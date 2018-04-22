@@ -162,8 +162,58 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:id="@+id/ll_wechat_mode"
+                android:padding="15dp">
+                <TextView
+                    android:id="@+id/tv_wechat_mode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="微信抢红包模式"
+                    android:textSize="@dimen/textsize_8"
+                    android:textColor="@color/text_black"
+                    />
+                <View
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@mipmap/arrow_right_icon" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:id="@+id/ll_wechat_delay"
+                android:padding="15dp">
+                <TextView
+                    android:id="@+id/tv_wechat_delay"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="设置微信抢红包延迟时间"
+                    android:textSize="@dimen/textsize_8"
+                    android:textColor="@color/text_black"
+                    />
+                <View
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@mipmap/arrow_right_icon" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:layout_marginTop="15dp"
                 android:padding="15dp">
                 <TextView
                     android:layout_width="0dp"
