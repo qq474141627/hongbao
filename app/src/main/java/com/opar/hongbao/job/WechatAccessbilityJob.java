@@ -346,7 +346,7 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
         if (list == null)
             return;
         if(list.isEmpty()) {
-            List<AccessibilityNodeInfo> node = nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/apv");
+            List<AccessibilityNodeInfo> node = nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/apx");
             if(node != null){
                 for(AccessibilityNodeInfo info : node){
                     if(info.getText().toString().startsWith("[微信红包]")){
