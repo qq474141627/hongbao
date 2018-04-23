@@ -28,3 +28,22 @@
 -keep public class com.opar.hongbao.R$*{
 public static final int *;
 }
+
+-keepclassmembers class * {
+        public (org.json.JSONObject);
+}
+
+-keep class com.umeng.onlineconfig.OnlineConfigAgent {
+        public <fields>;
+        public <methods>;
+
+}
+
+-keep class com.umeng.onlineconfig.OnlineConfigLog {
+        public <fields>;
+        public <methods>;
+}
+
+-keep interface com.umeng.onlineconfig.UmengOnlineConfigureListener {
+        public <methods>;
+}

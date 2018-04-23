@@ -1,11 +1,15 @@
-package com.opar.hongbao;
+package com.opar.hongbao.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 
 import com.umeng.analytics.MobclickAgent;
+
+import butterknife.ButterKnife;
 //======================================================================
 //        All rights reserved
 //
@@ -21,7 +25,14 @@ public class BaseActivity extends Activity {
     @Override
     protected void onCreate(Bundle b){
         super.onCreate(b);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         context = this;
+    }
+
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        super.setContentView(layoutResID);
+        ButterKnife.bind(this);
     }
 
     @Override

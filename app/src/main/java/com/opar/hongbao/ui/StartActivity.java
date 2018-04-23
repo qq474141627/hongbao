@@ -1,28 +1,42 @@
-package com.opar.hongbao;
+package com.opar.hongbao.ui;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.SwitchCompat;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.opar.hongbao.Config;
+import com.opar.hongbao.R;
+import com.opar.hongbao.data.AdConfig;
 import com.opar.hongbao.service.LuckyMoneyNotificationService;
 import com.opar.hongbao.service.LuckyMoneyService;
+import com.opar.hongbao.util.DownLoadUtil;
 import com.opar.hongbao.util.EventBusMsg;
 import com.opar.hongbao.util.ISuccessCallBack;
 import com.opar.hongbao.util.SharedPreferencesUtil;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.onlineconfig.OnlineConfigAgent;
+import com.umeng.onlineconfig.OnlineConfigLog;
+import com.umeng.onlineconfig.UmengOnlineConfigureListener;
+
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
@@ -71,24 +85,27 @@ public class StartActivity extends BaseActivity implements CompoundButton.OnChec
 
     private int selectWXModel = Config.WX_MODE_0;//当前选中的模式
     private int selectWXDelay = 0;//当前选中的延时模式
+    private AdConfig adConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        ButterKnife.bind(this);
         EventBus.getDefault().register(this);
-//        setSupportActionBar(toolbar);
-
+//        OnlineConfigAgent.getInstance().setDebugMode(true);
+        OnlineConfigAgent.getInstance().updateOnlineConfig(this);
         switchService.setOnCheckedChangeListener(this);
         switchNotification.setOnCheckedChangeListener(this);
         switchWechat.setOnCheckedChangeListener(this);
         switchQq.setOnCheckedChangeListener(this);
+        getUMConfig();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onResume() {
         super.onResume();
+        DownLoadUtil.getInstance().showInstallApkOrNo(this,adConfig);
         if (LuckyMoneyService.isRunning()) {
             switchService.setChecked(true);
         }else {
@@ -268,6 +285,12 @@ public class StartActivity extends BaseActivity implements CompoundButton.OnChec
         selectWXDelay = which;
         tvWechatDelay.setText(delays[which]);
         Config.getConfig(this).setWechatOpenDelayTime(delayTimes[which]);
+    }
+
+    private void getUMConfig(){
+        String json = OnlineConfigAgent.getInstance().getConfigParams(this,"ad");
+        this.adConfig = JSON.parseObject(json,AdConfig.class);
+
     }
 
 }

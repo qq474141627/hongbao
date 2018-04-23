@@ -1,20 +1,17 @@
-package com.opar.hongbao;
+package com.opar.hongbao.ui;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import java.io.IOException;
+import com.opar.hongbao.R;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 //======================================================================
 //        All rights reserved
@@ -37,7 +34,6 @@ public class GuideActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
-        ButterKnife.bind(this);
 //        setSupportActionBar(toolbar);
         viewPager.setOffscreenPageLimit(imgs.length);
         viewPager.setAdapter(new ImageViewPagerAdapter(this));

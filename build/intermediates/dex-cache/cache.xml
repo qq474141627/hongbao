@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/wangbo/.gradle/caches/modules-2/files-2.1/com.alibaba/fastjson/1.2.47/73d66d7ee99e81373b4955f2ee3797791520329b/fastjson-1.2.47.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="73d66d7ee99e81373b4955f2ee3797791520329b">
+        <dex dex="/Users/wangbo/Desktop/cgtz/hongbao/app/build/intermediates/pre-dexed/debug/fastjson-1.2.47_939b7c1094f4831d1cf612611053d16e06ae3353.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wangbo/Desktop/cgtz/hongbao/app/libs/umeng-onlineconfig_v1.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="716926f94af2f74098d6579fcd72462ad4773c73">
+        <dex dex="/Users/wangbo/Desktop/cgtz/hongbao/app/build/intermediates/pre-dexed/debug/umeng-onlineconfig_v1.0.0_a41e7cacde157ef4b27412f499d64d72ba3e1bfd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wangbo/.android/build-cache/e6da25f4480f68924df0f8a78c64cf0853ed2a61/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="911a9db6944602599b211f8c2822581067476288">
+        <dex dex="/Users/wangbo/Desktop/cgtz/hongbao/app/build/intermediates/pre-dexed/debug/classes_4c015ffe0e24a39cfb6464230562d42818339020.jar" />
+    </item>
+
+</items>
