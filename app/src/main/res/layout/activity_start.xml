@@ -3,21 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:gravity="center"
-        android:text="@string/app_name"
-        android:textColor="@android:color/white"
-        android:background="@color/colorPrimary"
-        android:textSize="20sp" />
+    <include layout="@layout/layout_toolbar"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:overScrollMode="never">
 
         <LinearLayout
@@ -31,41 +26,32 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:padding="20dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="累计为您抢到："
-                    android:textColor="@color/text_black"
-                    android:textSize="@dimen/textsize_7" />
+                    style="@style/Page.TextStyle.Size45"
+                    android:textColor="@color/_333333"
+                    android:text="累计为您抢到：" />
 
                 <TextView
                     android:id="@+id/tv_total_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/Page.TextStyle.Size65"
                     android:layout_gravity="center_horizontal"
                     android:padding="20dp"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/textsize_15"
-                    tools:text="12223个" />
+                    android:textColor="@color/default_color_green"/>
 
                 <TextView
                     android:id="@+id/tv_wechat_cout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="微信红包：0个"
-                    android:textColor="@color/text_black"
-                    android:textSize="@dimen/textsize_7" />
+                    style="@style/Page.TextStyle.Size45"
+                    android:textColor="@color/_333333"
+                    android:text="微信红包：0个"/>
 
                 <TextView
                     android:id="@+id/tv_qq_cout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/Page.TextStyle.Size45"
+                    android:textColor="@color/_333333"
                     android:layout_marginTop="5dp"
-                    android:text="QQ红包：0个"
-                    android:textColor="@color/text_black"
-                    android:textSize="@dimen/textsize_7" />
+                    android:text="QQ红包：0个"/>
             </LinearLayout>
 
             <LinearLayout
@@ -73,93 +59,109 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
+                android:gravity="center_vertical"
                 android:padding="15dp">
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    style="@style/Page.TextStyle.Size45"
+                    android:textColor="@color/_333333"
                     android:layout_weight="1"
-                    android:text="启动后台服务"
-                    android:textSize="@dimen/textsize_8"
-                    android:textColor="@color/text_black"
-                    />
-                <android.support.v7.widget.SwitchCompat
+                    android:gravity="left"
+                    android:text="启动后台服务"/>
+                <com.opar.mobile.view.SwitchView
                     android:id="@+id/switch_service"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    />
+                    android:layout_width="@dimen/xx130"
+                    android:layout_height="@dimen/xx80"
+                    android:layout_marginRight="@dimen/xx20"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    app:outerStrokeWidth="@dimen/xx2"
+                    app:shadowSpace="@dimen/xx5"
+                    app:tintColor="@color/default_color_new_green"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/divider" />
+                android:background="@color/line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:gravity="center_vertical"
                 android:padding="15dp">
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    style="@style/Page.TextStyle.Size45"
+                    android:textColor="@color/_333333"
                     android:layout_weight="1"
-                    android:text="监听通知消息"
-                    android:textSize="@dimen/textsize_8"
-                    android:textColor="@color/text_black"
-                    />
-                <android.support.v7.widget.SwitchCompat
+                    android:gravity="left"
+                    android:text="监听通知消息"/>
+                <com.opar.mobile.view.SwitchView
                     android:id="@+id/switch_notification"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    />
-
+                    android:layout_width="@dimen/xx130"
+                    android:layout_height="@dimen/xx80"
+                    android:layout_marginRight="@dimen/xx20"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    app:outerStrokeWidth="@dimen/xx2"
+                    app:shadowSpace="@dimen/xx5"
+                    app:tintColor="@color/default_color_new_green"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/divider" />
+                android:background="@color/line" />
 
-            <TextView
-                android:id="@+id/tv_guide"
+            <LinearLayout
+                android:id="@+id/ll_guide"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
                 android:background="@color/white"
-                android:text="使用指南"
-                android:textSize="@dimen/textsize_8"
-                android:textColor="@color/text_black"
-                />
+                android:gravity="center_vertical"
+                android:padding="15dp">
+                <TextView
+                    android:id="@+id/tv_guide"
+                    style="@style/Page.TextStyle.Size45"
+                    android:textColor="@color/_333333"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="使用指南"/>
+                <View
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@mipmap/arrow_right_icon" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
                 android:background="@color/white"
                 android:padding="15dp">
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    style="@style/Page.TextStyle.Size45"
+                    android:textColor="@color/_333333"
                     android:layout_weight="1"
-                    android:text="微信红包"
-                    android:textSize="@dimen/textsize_8"
-                    android:textColor="@color/text_black"
-                    />
-                <android.support.v7.widget.SwitchCompat
+                    android:gravity="left"
+                    android:text="微信红包"/>
+                <com.opar.mobile.view.SwitchView
                     android:id="@+id/switch_wechat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    />
-
+                    android:layout_width="@dimen/xx130"
+                    android:layout_height="@dimen/xx80"
+                    android:layout_marginRight="@dimen/xx20"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    app:outerStrokeWidth="@dimen/xx2"
+                    app:shadowSpace="@dimen/xx5"
+                    app:tintColor="@color/default_color_new_green"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/divider" />
+                android:background="@color/line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -170,13 +172,11 @@
                 android:padding="15dp">
                 <TextView
                     android:id="@+id/tv_wechat_mode"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    style="@style/Page.TextStyle.Size45"
+                    android:textColor="@color/_333333"
                     android:layout_weight="1"
-                    android:text="微信抢红包模式"
-                    android:textSize="@dimen/textsize_8"
-                    android:textColor="@color/text_black"
-                    />
+                    android:gravity="left"
+                    android:text="微信抢红包模式"/>
                 <View
                     android:layout_width="25dp"
                     android:layout_height="25dp"
@@ -186,7 +186,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/divider" />
+                android:background="@color/line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -197,13 +197,11 @@
                 android:padding="15dp">
                 <TextView
                     android:id="@+id/tv_wechat_delay"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    style="@style/Page.TextStyle.Size45"
+                    android:textColor="@color/_333333"
                     android:layout_weight="1"
-                    android:text="设置微信抢红包延迟时间"
-                    android:textSize="@dimen/textsize_8"
-                    android:textColor="@color/text_black"
-                    />
+                    android:gravity="left"
+                    android:text="设置微信抢红包延迟时间"/>
                 <View
                     android:layout_width="25dp"
                     android:layout_height="25dp"
@@ -217,23 +215,31 @@
                 android:layout_marginTop="15dp"
                 android:padding="15dp">
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    style="@style/Page.TextStyle.Size45"
+                    android:textColor="@color/_333333"
                     android:layout_weight="1"
-                    android:text="QQ红包"
-                    android:textSize="@dimen/textsize_8"
-                    android:textColor="@color/text_black"
-                    />
-                <android.support.v7.widget.SwitchCompat
+                    android:gravity="left"
+                    android:text="QQ红包"/>
+                <com.opar.mobile.view.SwitchView
                     android:id="@+id/switch_qq"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false" />
-
+                    android:layout_width="@dimen/xx130"
+                    android:layout_height="@dimen/xx80"
+                    android:layout_marginRight="@dimen/xx20"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    app:outerStrokeWidth="@dimen/xx2"
+                    app:shadowSpace="@dimen/xx5"
+                    app:tintColor="@color/default_color_new_green"/>
             </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
+
+    <!--<com.opar.mobile.view.NewsView-->
+        <!--android:id="@+id/newsView"-->
+        <!--android:background="@color/green"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
 
 </LinearLayout>

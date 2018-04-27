@@ -5,14 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:background="@color/colorPrimary"
-        android:textSize="20sp" />
+    <include layout="@layout/layout_toolbar"/>
 
     <ProgressBar
         android:id="@+id/progressbar"
@@ -22,7 +15,7 @@
         android:max="100"
         android:progress="0"
         android:visibility="gone"/>
-    <com.opar.hongbao.web.MyWebView
+    <com.opar.mobile.web.MyWebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.GuideActivity"/>
-        <activity android:name=".ui.WebActivity"/>
+        <activity android:name="com.opar.mobile.ui.WebActivity"/>
 
         <service
             android:name=".service.LuckyMoneyService"

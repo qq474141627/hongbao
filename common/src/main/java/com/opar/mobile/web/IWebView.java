@@ -1,4 +1,4 @@
-package com.opar.hongbao.web;
+package com.opar.mobile.web;
 
 /**
  * Created by wangbo on 17/11/27.

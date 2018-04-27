@@ -4,15 +4,10 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
-import android.support.v7.widget.SwitchCompat;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,19 +15,19 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.opar.hongbao.Config;
 import com.opar.hongbao.R;
-import com.opar.hongbao.data.AdConfig;
 import com.opar.hongbao.service.LuckyMoneyNotificationService;
 import com.opar.hongbao.service.LuckyMoneyService;
-import com.opar.hongbao.util.DownLoadUtil;
 import com.opar.hongbao.util.EventBusMsg;
 import com.opar.hongbao.util.ISuccessCallBack;
 import com.opar.hongbao.util.SharedPreferencesUtil;
-import com.umeng.analytics.MobclickAgent;
+import com.opar.mobile.base.BaseActivity;
+import com.opar.mobile.data.AdConfig;
+import com.opar.mobile.utils.ToastUtil;
+import com.opar.mobile.view.NewsView;
+import com.opar.mobile.view.SwitchView;
+import com.opar.mobile.view.WonderfulView;
+import com.opar.mobile.view.dialog.WonderfulDialog;
 import com.umeng.onlineconfig.OnlineConfigAgent;
-import com.umeng.onlineconfig.OnlineConfigLog;
-import com.umeng.onlineconfig.UmengOnlineConfigureListener;
-
-import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -48,7 +43,7 @@ import de.greenrobot.event.Subscribe;
 //
 //======================================================================
 
-public class StartActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener{
+public class StartActivity extends BaseActivity{
 
 //    @BindView(R.id.toolbar)
 //    Toolbar toolbar;
@@ -59,15 +54,15 @@ public class StartActivity extends BaseActivity implements CompoundButton.OnChec
     @BindView(R.id.tv_qq_cout)
     TextView tvQqCout;
     @BindView(R.id.switch_service)
-    SwitchCompat switchService;
+    SwitchView switchService;
     @BindView(R.id.switch_notification)
-    SwitchCompat switchNotification;
-    @BindView(R.id.tv_guide)
-    TextView tvGuide;
+    SwitchView switchNotification;
+    @BindView(R.id.ll_guide)
+    LinearLayout llGuide;
     @BindView(R.id.switch_wechat)
-    SwitchCompat switchWechat;
+    SwitchView switchWechat;
     @BindView(R.id.switch_qq)
-    SwitchCompat switchQq;
+    SwitchView switchQq;
     @BindView(R.id.ll_wechat_mode)
     LinearLayout llWechatMode;
     @BindView(R.id.tv_wechat_mode)
@@ -76,6 +71,8 @@ public class StartActivity extends BaseActivity implements CompoundButton.OnChec
     LinearLayout llWechatDelay;
     @BindView(R.id.tv_wechat_delay)
     TextView tvWechatDelay;
+//    @BindView(R.id.newsView)
+//    NewsView newsView;
 
 
     boolean changeByUser = true;
@@ -85,19 +82,64 @@ public class StartActivity extends BaseActivity implements CompoundButton.OnChec
 
     private int selectWXModel = Config.WX_MODE_0;//当前选中的模式
     private int selectWXDelay = 0;//当前选中的延时模式
-    private AdConfig adConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        setTitle(R.string.app_name);
+        setLeftBtn(false,null);
         EventBus.getDefault().register(this);
 //        OnlineConfigAgent.getInstance().setDebugMode(true);
         OnlineConfigAgent.getInstance().updateOnlineConfig(this);
-        switchService.setOnCheckedChangeListener(this);
-        switchNotification.setOnCheckedChangeListener(this);
-        switchWechat.setOnCheckedChangeListener(this);
-        switchQq.setOnCheckedChangeListener(this);
+        switchService.setOnSwitchStateChangeListener(new SwitchView.OnSwitchStateChangeListener() {
+            @Override
+            public void onSwitchStateChange(boolean isOn) {
+                if (!changeByUser) {
+                    changeByUser = true;
+                    return;
+                }
+                if (isOn && !LuckyMoneyService.isRunning()) {
+                    openAccessibilityServiceSettings();
+                }
+            }
+        });
+        switchNotification.setOnSwitchStateChangeListener(new SwitchView.OnSwitchStateChangeListener() {
+            @Override
+            public void onSwitchStateChange(boolean isOn) {
+                if (!changeByUser) {
+                    changeByUser = true;
+                    return;
+                }
+                if(isOn && Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    Toast.makeText(StartActivity.this, "该功能只支持安卓4.3以上的系统", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Config.getConfig(context).setNotificationServiceEnable(isOn);
+                if (isOn && !LuckyMoneyNotificationService.isRunning())
+                    openNotificationServiceSettings();
+            }
+        });
+        switchWechat.setOnSwitchStateChangeListener(new SwitchView.OnSwitchStateChangeListener() {
+            @Override
+            public void onSwitchStateChange(boolean isOn) {
+                SharedPreferencesUtil.saveBoolean(context, Config.KEY_WECHAT_ENABLE, isOn);
+            }
+        });
+        switchQq.setOnSwitchStateChangeListener(new SwitchView.OnSwitchStateChangeListener() {
+            @Override
+            public void onSwitchStateChange(boolean isOn) {
+                if (!changeByUser) {
+                    changeByUser = true;
+                    return;
+                }
+                if (isOn) {
+                    changeByUser = false;
+                    switchQq.setEnabled(false);
+                    ToastUtil.showToast(context, "暂未开通，敬请期待");
+                }
+            }
+        });
         getUMConfig();
     }
 
@@ -105,20 +147,19 @@ public class StartActivity extends BaseActivity implements CompoundButton.OnChec
     @Override
     protected void onResume() {
         super.onResume();
-        DownLoadUtil.getInstance().showInstallApkOrNo(this,adConfig);
         if (LuckyMoneyService.isRunning()) {
-            switchService.setChecked(true);
+            switchService.setOn(true);
         }else {
-            switchService.setChecked(false);
+            switchService.setOn(false);
         }
         boolean enable = Config.getConfig(this).isEnableNotificationService();
         boolean running = LuckyMoneyService.isNotificationServiceRunning();
-        if (enable && running && !switchNotification.isChecked()) {
+        if (enable && running && !switchNotification.isOn()) {
             changeByUser = false;
-            switchNotification.setChecked(true);
-        } else if((!enable || !running) && switchNotification.isChecked()) {
+            switchNotification.setOn(true);
+        } else if((!enable || !running) && switchNotification.isOn()) {
             changeByUser = false;
-            switchNotification.setChecked(false);
+            switchNotification.setOn(false);
         }
         setWechatModel(Config.getConfig(this).getWechatMode());
         setWechatDelay(Arrays.asList(delayTimes).indexOf(Config.getConfig(this).getWechatOpenDelayTime()));
@@ -135,11 +176,11 @@ public class StartActivity extends BaseActivity implements CompoundButton.OnChec
     }
 
     private void updateEnableStatus() {
-        switchWechat.setChecked(SharedPreferencesUtil.getBoolean(this, Config.KEY_WECHAT_ENABLE));
-        switchQq.setChecked(SharedPreferencesUtil.getBoolean(this, Config.KEY_QQ_ENABLE));
+        switchWechat.setOn(SharedPreferencesUtil.getBoolean(this, Config.KEY_WECHAT_ENABLE));
+        switchQq.setOn(SharedPreferencesUtil.getBoolean(this, Config.KEY_QQ_ENABLE));
     }
 
-    @OnClick(R.id.tv_guide)
+    @OnClick(R.id.ll_guide)
     public void onGuide() {
         Intent itGuide = new Intent(this, GuideActivity.class);
         startActivity(itGuide);
@@ -164,50 +205,6 @@ public class StartActivity extends BaseActivity implements CompoundButton.OnChec
             }
         });
     }
-
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean enable) {
-        switch (compoundButton.getId()) {
-            case R.id.switch_service:
-                if (!changeByUser) {
-                    changeByUser = true;
-                    return;
-                }
-                if (enable && !LuckyMoneyService.isRunning()) {
-                    openAccessibilityServiceSettings();
-                }
-                break;
-            case R.id.switch_notification:
-                if (!changeByUser) {
-                    changeByUser = true;
-                    return;
-                }
-                if(enable && Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                    Toast.makeText(StartActivity.this, "该功能只支持安卓4.3以上的系统", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Config.getConfig(this).setNotificationServiceEnable(enable);
-                if (enable && !LuckyMoneyNotificationService.isRunning())
-                    openNotificationServiceSettings();
-                break;
-            case R.id.switch_wechat:
-                SharedPreferencesUtil.saveBoolean(this, Config.KEY_WECHAT_ENABLE, enable);
-                break;
-            case R.id.switch_qq:
-                if (!changeByUser) {
-                    changeByUser = true;
-                    return;
-                }
-                if (enable) {
-                    changeByUser = false;
-                    switchQq.setChecked(false);
-                    Toast.makeText(this, "暂未开通，敬请期待", Toast.LENGTH_SHORT).show();
-                }
-//                SharedPreferencesUtil.saveBoolean(this, Config.KEY_QQ_ENABLE, enable);
-                break;
-        }
-    }
-
 
     /** 打开辅助服务的设置*/
     public void openAccessibilityServiceSettings() {
@@ -238,22 +235,22 @@ public class StartActivity extends BaseActivity implements CompoundButton.OnChec
             case EventBusMsg.ACCESSIBILITY_CONNECTED:
                 Toast.makeText(getApplicationContext(), "已成功连接服务", Toast.LENGTH_SHORT).show();
                 changeByUser = false;
-                switchService.setChecked(true);
+                switchService.setOn(true);
                 break;
             case EventBusMsg.ACCESSIBILITY_DISCONNECTED:
                 Toast.makeText(getApplicationContext(), "已断开连接", Toast.LENGTH_SHORT).show();
                 changeByUser = false;
-                switchService.setChecked(false);
+                switchService.setOn(false);
                 break;
             case EventBusMsg.NOTIFICATION_CONNECTED:
                 Toast.makeText(getApplicationContext(), "正在监听通知栏", Toast.LENGTH_SHORT).show();
                 changeByUser = false;
-                switchNotification.setChecked(true);
+                switchNotification.setOn(true);
                 break;
             case EventBusMsg.NOTIFICATION_DISCONNECTED:
                 Toast.makeText(getApplicationContext(), "已停止监听通知栏", Toast.LENGTH_SHORT).show();
                 changeByUser = false;
-                switchNotification.setChecked(false);
+                switchNotification.setOn(false);
                 break;
             default:
                 break;
@@ -288,8 +285,15 @@ public class StartActivity extends BaseActivity implements CompoundButton.OnChec
     }
 
     private void getUMConfig(){
-        String json = OnlineConfigAgent.getInstance().getConfigParams(this,"ad");
-        this.adConfig = JSON.parseObject(json,AdConfig.class);
+        String AdConfigJson = OnlineConfigAgent.getInstance().getConfigParams(this,"AdConfig");
+        AdConfig adConfig = JSON.parseObject(AdConfigJson,AdConfig.class);
+//        if(adConfig.isBannerAdOn() && adConfig.getBannerAd() != null){
+//            newsView.setConfig(adConfig.getBannerAd());
+//        }
+        if(adConfig.isWonderAdOn() && adConfig.getWonderAd() != null){
+            new WonderfulDialog(this).showDialog(adConfig.getWonderAd());
+        }
+
 
     }
 

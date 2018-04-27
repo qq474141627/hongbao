@@ -1,4 +1,4 @@
-package com.opar.hongbao.web;
+package com.opar.mobile.web;
 
 
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import android.webkit.DownloadListener;
 
 import com.github.lzyzsd.jsbridge.BridgeWebView;
-import com.opar.hongbao.util.DownLoadUtil;
 
 /**
  * Created by wangbo on 17/11/21.

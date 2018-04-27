@@ -1,10 +1,11 @@
-package com.opar.hongbao.web;
+package com.opar.mobile.web;
 
 import android.os.Build;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+
 /**
  * 初始化界面配置
  */

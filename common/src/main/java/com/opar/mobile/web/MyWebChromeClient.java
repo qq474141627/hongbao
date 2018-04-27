@@ -1,7 +1,5 @@
-package com.opar.hongbao.web;
+package com.opar.mobile.web;
 
-import android.net.Uri;
-import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 

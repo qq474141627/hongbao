@@ -2,6 +2,7 @@ package com.opar.hongbao;
 
 import android.app.Application;
 
+import com.opar.mobile.utils.MyCrashHandler;
 import com.umeng.commonsdk.UMConfigure;
 //======================================================================
 //        All rights reserved
@@ -17,6 +18,7 @@ public class MyApplication extends Application{
     public void onCreate() {
         super.onCreate();
         UMConfigure.init(this, 1,"");
+        MyCrashHandler.getInstance().init(this);
     }
 
 }

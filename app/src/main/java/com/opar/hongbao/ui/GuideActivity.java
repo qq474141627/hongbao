@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.opar.hongbao.R;
+import com.opar.mobile.base.BaseActivity;
 
 import butterknife.BindView;
 
@@ -23,8 +24,6 @@ import butterknife.BindView;
 
 public class GuideActivity extends BaseActivity {
 
-//    @BindView(R.id.toolbar)
-//    Toolbar toolbar;
     @BindView(R.id.view_pager)
     ViewPager viewPager;
 
@@ -34,7 +33,8 @@ public class GuideActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
-//        setSupportActionBar(toolbar);
+        setTitle("使用指南");
+        setLeftBtn(true,null);
         viewPager.setOffscreenPageLimit(imgs.length);
         viewPager.setAdapter(new ImageViewPagerAdapter(this));
     }

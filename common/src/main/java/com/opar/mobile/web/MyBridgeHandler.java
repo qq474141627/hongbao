@@ -1,7 +1,6 @@
-package com.opar.hongbao.web;
+package com.opar.mobile.web;
 
 import com.github.lzyzsd.jsbridge.BridgeHandler;
-import com.github.lzyzsd.jsbridge.CallBackFunction;
 
 /**
  * Created by wangbo on 17/11/28.
