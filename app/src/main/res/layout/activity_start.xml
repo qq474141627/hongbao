@@ -236,10 +236,10 @@
 
     </ScrollView>
 
-    <!--<com.opar.mobile.view.NewsView-->
-        <!--android:id="@+id/newsView"-->
-        <!--android:background="@color/green"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"/>-->
+    <LinearLayout
+        android:id="@+id/llBanner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/xx180"
+        android:orientation="vertical"/>
 
 </LinearLayout>

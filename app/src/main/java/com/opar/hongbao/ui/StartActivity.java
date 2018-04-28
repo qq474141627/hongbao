@@ -22,6 +22,7 @@ import com.opar.hongbao.util.ISuccessCallBack;
 import com.opar.hongbao.util.SharedPreferencesUtil;
 import com.opar.mobile.base.BaseActivity;
 import com.opar.mobile.data.AdConfig;
+import com.opar.mobile.utils.LogUtils;
 import com.opar.mobile.utils.ToastUtil;
 import com.opar.mobile.view.NewsView;
 import com.opar.mobile.view.SwitchView;
@@ -71,8 +72,8 @@ public class StartActivity extends BaseActivity{
     LinearLayout llWechatDelay;
     @BindView(R.id.tv_wechat_delay)
     TextView tvWechatDelay;
-//    @BindView(R.id.newsView)
-//    NewsView newsView;
+    @BindView(R.id.llBanner)
+    LinearLayout llBanner;
 
 
     boolean changeByUser = true;
@@ -90,7 +91,7 @@ public class StartActivity extends BaseActivity{
         setTitle(R.string.app_name);
         setLeftBtn(false,null);
         EventBus.getDefault().register(this);
-//        OnlineConfigAgent.getInstance().setDebugMode(true);
+        OnlineConfigAgent.getInstance().setDebugMode(true);
         OnlineConfigAgent.getInstance().updateOnlineConfig(this);
         switchService.setOnSwitchStateChangeListener(new SwitchView.OnSwitchStateChangeListener() {
             @Override
@@ -286,10 +287,11 @@ public class StartActivity extends BaseActivity{
 
     private void getUMConfig(){
         String AdConfigJson = OnlineConfigAgent.getInstance().getConfigParams(this,"AdConfig");
+        LogUtils.e(AdConfigJson);
         AdConfig adConfig = JSON.parseObject(AdConfigJson,AdConfig.class);
-//        if(adConfig.isBannerAdOn() && adConfig.getBannerAd() != null){
-//            newsView.setConfig(adConfig.getBannerAd());
-//        }
+        if(adConfig.isBannerAdOn() && adConfig.getBannerAd() != null){
+            llBanner.addView(new NewsView(this).setConfig(adConfig.getBannerAd()));
+        }
         if(adConfig.isWonderAdOn() && adConfig.getWonderAd() != null){
             new WonderfulDialog(this).showDialog(adConfig.getWonderAd());
         }

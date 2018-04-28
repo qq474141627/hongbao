@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsIndicatorColor" format="color"/>
+        <attr name="pstsUnderlineColor" format="color"/>
+        <attr name="pstsDividerColor" format="color"/>
+        <attr name="pstsIndicatorHeight" format="dimension"/>
+        <attr name="pstsUnderlineHeight" format="dimension"/>
+        <attr name="pstsDividerPadding" format="dimension"/>
+        <attr name="pstsTabPaddingLeftRight" format="dimension"/>
+        <attr name="pstsScrollOffset" format="dimension"/>
+        <attr name="pstsTabBackground" format="reference"/>
+        <attr name="pstsShouldExpand" format="boolean"/>
+        <attr name="pstsTextAllCaps" format="boolean"/>
+    </declare-styleable>
+
+
+    <!-- LockPatternView class attributes -->
+    <declare-styleable name="LockPatternView">
+
+        <!--
+             Aspect to use when drawing LockPatternView. Choices are "square"(default), "lock_width"
+             or "lock_height"
+        -->
+        <attr name="aspect">
+            <enum name="square" value="0"/>
+            <enum name="lockWidth" value="1"/>
+            <enum name="lockHeight" value="2"/>
+        </attr>
+        <attr name="line" format="color"/>
+        <attr name="btnNormal" format="reference"/>
+        <attr name="btnTouched" format="reference"/>
+        <attr name="circleNormal" format="reference"/>
+        <attr name="circleGreen" format="reference"/>
+        <attr name="circleRed" format="reference"/>
+        <attr name="arrowGreenUp" format="reference"/>
+        <attr name="arrowRedUp" format="reference"/>
+    </declare-styleable>
+  
+    <!-- 自定义水球-->
+    <declare-styleable name="windows">
+
+        <!-- 背景颜色 -->
+        <attr name="copy_color" format="color"/>
+        <!-- 进度颜色 -->
+        <attr name="rate_color" format="color"/>
+
+        <!--字体大小-->
+        <attr name="copy_size" format="dimension"/>
+        <!--字体大小-->
+        <attr name="rate_size" format="dimension"/>
+        <!--振幅-->
+        <attr name="amplitude" format="dimension"/>
+    </declare-styleable>
+
+
+    <!-- 状态栏字体颜色-->
+    <declare-styleable name="MyToolbar">
+        <attr name="statusTextColor">
+            <enum name="normal" value="0"/>
+            <enum name="dark" value="1"/>
+        </attr>
+        <attr name="statusTextSize" format="dimension"/>
+    </declare-styleable>
+
+    <!-- 圆角标签控件属性-->
+    <declare-styleable name="CornerTabView">
+        <attr name="tabColor" format="color|reference"/>
+        <attr name="enableColor" format="color|reference"/>
+        <attr name="disableColor" format="color|reference"/>
+        <attr name="textArray" format="reference"/>
+        <attr name="tabTextSize" format="dimension"/>
+        <attr name="tabCornerRadius" format="dimension"/>
+        <attr name="tabStokenWidth" format="dimension"/>
+    </declare-styleable>
+
+    <!-- 进度条-->
+    <declare-styleable name="DonutProgressView">
+        <attr name="donut_progress" format="integer"/>
+        <attr name="donut_max" format="integer"/>
+        <attr name="donut_unfinished_color" format="color"/>
+        <attr name="donut_finished_color" format="color"/>
+        <attr name="donut_finished_stroke_width" format="dimension"/>
+        <attr name="donut_unfinished_stroke_width" format="dimension"/>
+        <attr name="donut_text_size" format="dimension"/>
+        <attr name="donut_text_color" format="color"/>
+        <attr name="donut_prefix_text" format="string"/>
+        <attr name="donut_suffix_text" format="string"/>
+        <attr name="donut_text" format="string"/>
+        <attr name="donut_background_color" format="color"/>
+        <attr name="donut_inner_bottom_text" format="string"/>
+        <attr name="donut_inner_bottom_text_size" format="dimension"/>
+        <attr name="donut_inner_bottom_text_color" format="color"/>
+        <attr name="donut_circle_starting_degree" format="integer"/>
+        <attr name="donut_suffix_textsize" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="SwitchView">
+        <!-- 选中颜色 -->
+        <attr name="tintColor" format="reference|color"/>
+        <!-- 最外层边框宽度 -->
+        <attr name="outerStrokeWidth" format="reference|dimension"/>
+        <!-- 内层阴影Y轴方向偏移量 -->
+        <attr name="shadowSpace" format="reference|dimension"/>
+        <!-- 内层圆角矩形的颜色 -->
+        <attr name="innerColor" format="reference|color"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+
+    <!--自定义圆形进度条的属性-->
+    <declare-styleable name="RoundProgressBar">
+        <attr name="line_bg2" format="color"/>
+        <attr name="line_bg1" format="color"/>
+        <attr name="bottomColor" format="color"/>
+        <attr name="progressColor" format="color"/>
+        <attr name="linewidth" format="dimension"/>
+        <attr name="textSize_projectType" format="dimension"/>
+        <attr name="roundColor_bg" format="color"/>
+        <attr name="roundColor" format="color"/>
+        <attr name="roundProgressColor" format="color"/>
+        <attr name="roundWidth" format="dimension"/>
+        <attr name="roundWidth_bg" format="dimension"/>
+        <attr name="textColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="textSize_rate2" format="dimension"/>
+        <attr name="max" format="integer"/>
+        <attr name="progressIsDisplayable" format="boolean"/>
+        <attr name="bgIsDisplayable" format="boolean"/>
+        <attr name="textIsDisplayable" format="boolean"/>
+        <attr name="style">
+            <enum name="STROKE" value="0"/>
+            <enum name="FILL" value="1"/>
+        </attr>
+    </declare-styleable>
+    
+    <declare-styleable name="TimeTextView">
+        <attr name="isAutoSendSms" format="boolean"/>
+        <attr name="normalTextColor" format="color"/>
+        <attr name="countTextColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="HorizontalListView">
+        <attr name="dividerWidth" format="dimension" />
+        <attr name="android:divider" />
+        <attr name="android:requiresFadingEdge" />
+        <attr name="android:fadingEdgeLength" />
+    </declare-styleable>
+        
+</resources>
