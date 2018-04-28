@@ -53,6 +53,7 @@ public class NewsView extends LinearLayout implements View.OnClickListener{
         iv_news_icon = (ImageView) view.findViewById(R.id.iv_news_icon);
         tv_news_title = (TextView) view.findViewById(R.id.tv_news_title);
         tv_news_content = (TextView) view.findViewById(R.id.tv_news_content);
+        setOnClickListener(this);
     }
 
 

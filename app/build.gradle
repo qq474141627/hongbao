@@ -6,24 +6,60 @@ android {
     defaultConfig {
         applicationId "com.opar.hongbao"
         minSdkVersion 16
-        targetSdkVersion 24
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+
+        debugConfig {
+            storeFile file("opar_release.jks")
+            storePassword "androidopar"
+            keyAlias "opar"
+            keyPassword "androidopar"
+        }
+
+        releaseConfig {
+            storeFile file("opar_release.jks")
+            storePassword "androidopar"
+            keyAlias "opar"
+            keyPassword "androidopar"
+        }
+    }
     buildTypes {
         release {
+            signingConfig signingConfigs.releaseConfig
+            //是否进行混淆
+            minifyEnabled true
+            //移除无用的资源文件
+            shrinkResources true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            signingConfig signingConfigs.debugConfig
+            //是否进行混淆
             minifyEnabled false
+            //移除无用的资源文件
+            shrinkResources false
+            zipAlignEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
+    //移除lint检查出的error
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
 
-repositories {
-    flatDir {
-        dirs 'libs'
+        // butter knife
+        disable 'InvalidPackage'
     }
-    mavenCentral()
+    productFlavors {
+        opar {}
+    }
 }
 
 dependencies {

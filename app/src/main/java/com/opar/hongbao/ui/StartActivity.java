@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,10 +76,9 @@ public class StartActivity extends BaseActivity{
     @BindView(R.id.llBanner)
     LinearLayout llBanner;
 
-
     boolean changeByUser = true;
     private final String[] WXModels = new String[] { "自动抢抢全部红包", "只自动抢单聊红包" ,"只自动抢群聊红包","只通知手动抢"};
-    private final String[] delays = new String[] { "不延迟", "延迟0.2秒" ,"延迟0.5秒","延迟1秒"};
+    private final String[] delays = new String[] { "不延迟", "防作弊延迟0.2秒" ,"防作弊延迟0.5秒","防作弊延迟1秒"};
     private final Integer[] delayTimes = new Integer[] { 0, 200 ,500,1000};
 
     private int selectWXModel = Config.WX_MODE_0;//当前选中的模式
@@ -91,7 +91,7 @@ public class StartActivity extends BaseActivity{
         setTitle(R.string.app_name);
         setLeftBtn(false,null);
         EventBus.getDefault().register(this);
-        OnlineConfigAgent.getInstance().setDebugMode(true);
+//        OnlineConfigAgent.getInstance().setDebugMode(true);
         OnlineConfigAgent.getInstance().updateOnlineConfig(this);
         switchService.setOnSwitchStateChangeListener(new SwitchView.OnSwitchStateChangeListener() {
             @Override
@@ -288,15 +288,18 @@ public class StartActivity extends BaseActivity{
     private void getUMConfig(){
         String AdConfigJson = OnlineConfigAgent.getInstance().getConfigParams(this,"AdConfig");
         LogUtils.e(AdConfigJson);
-        AdConfig adConfig = JSON.parseObject(AdConfigJson,AdConfig.class);
-        if(adConfig.isBannerAdOn() && adConfig.getBannerAd() != null){
-            llBanner.addView(new NewsView(this).setConfig(adConfig.getBannerAd()));
+        try {
+            AdConfig adConfig = JSON.parseObject(AdConfigJson,AdConfig.class);
+            if(adConfig.isBannerAdOn() && adConfig.getBannerAd() != null){
+                llBanner.addView(new NewsView(this).setConfig(adConfig.getBannerAd()));
+                llBanner.setVisibility(View.VISIBLE);
+            }
+            if(adConfig.isWonderAdOn() && adConfig.getWonderAd() != null){
+                new WonderfulDialog(this).showDialog(adConfig.getWonderAd());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        if(adConfig.isWonderAdOn() && adConfig.getWonderAd() != null){
-            new WonderfulDialog(this).showDialog(adConfig.getWonderAd());
-        }
-
-
     }
 
 }
