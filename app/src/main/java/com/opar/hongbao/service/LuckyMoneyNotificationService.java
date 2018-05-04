@@ -32,6 +32,7 @@ public class LuckyMoneyNotificationService extends NotificationListenerService {
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             onListenerConnected();
         }
+        service = this;
     }
 
     private Config getConfig() {
@@ -58,7 +59,6 @@ public class LuckyMoneyNotificationService extends NotificationListenerService {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             super.onListenerConnected();
         }
-        service = this;
         EventBusMsg msg = new EventBusMsg();
         msg.setType(EventBusMsg.NOTIFICATION_CONNECTED);
         EventBus.getDefault().post(msg);

@@ -8,7 +8,7 @@
         optimize="true"
         revision="25.0.0"
         sha1="e27c32528b2a2cd608a8484c96af3799afc9f4f0">
-        <dex dex="/Users/wangbo/Desktop/cgtz/hongbao/app/build/intermediates/pre-dexed/opar/release/classes_ea3b2522abc69334d81290f5cac903e32b535939.jar" />
+        <dex dex="/Users/wangbo/Desktop/cgtz/hongbao/app/build/intermediates/pre-dexed/opar/debug/classes_ea3b2522abc69334d81290f5cac903e32b535939.jar" />
     </item>
     <item
         is-multidex="false"

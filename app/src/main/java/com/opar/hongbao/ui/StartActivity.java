@@ -98,7 +98,7 @@ public class StartActivity extends BaseActivity{
             public void onSwitchStateChange(boolean isOn) {
                 if (!changeByUser) {
                     changeByUser = true;
-                    return;
+//                    return;
                 }
                 if (isOn && !LuckyMoneyService.isRunning()) {
                     openAccessibilityServiceSettings();
@@ -110,7 +110,7 @@ public class StartActivity extends BaseActivity{
             public void onSwitchStateChange(boolean isOn) {
                 if (!changeByUser) {
                     changeByUser = true;
-                    return;
+//                    return;
                 }
                 if(isOn && Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
                     Toast.makeText(StartActivity.this, "该功能只支持安卓4.3以上的系统", Toast.LENGTH_SHORT).show();
@@ -132,7 +132,7 @@ public class StartActivity extends BaseActivity{
             public void onSwitchStateChange(boolean isOn) {
                 if (!changeByUser) {
                     changeByUser = true;
-                    return;
+//                    return;
                 }
                 if (isOn) {
                     changeByUser = false;
