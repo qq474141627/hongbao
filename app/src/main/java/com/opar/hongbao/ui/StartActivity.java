@@ -71,6 +71,8 @@ public class StartActivity extends BaseActivity{
     LinearLayout llWechatDelay;
     @BindView(R.id.tv_wechat_delay)
     TextView tvWechatDelay;
+    @BindView(R.id.switch_wechat_screen)
+    SwitchView switchWechatScreen;
     @BindView(R.id.llBanner)
     LinearLayout llBanner;
 
@@ -122,7 +124,13 @@ public class StartActivity extends BaseActivity{
         switchWechat.setOnSwitchStateChangeListener(new SwitchView.OnSwitchStateChangeListener() {
             @Override
             public void onSwitchStateChange(boolean isOn) {
-                SharedPreferencesUtil.saveBoolean(context, Config.KEY_WECHAT_ENABLE, isOn);
+                Config.getConfig(context).setEnableWechat(isOn);
+            }
+        });
+        switchWechatScreen.setOnSwitchStateChangeListener(new SwitchView.OnSwitchStateChangeListener() {
+            @Override
+            public void onSwitchStateChange(boolean isOn) {
+                Config.getConfig(context).setWechatScreen(isOn);
             }
         });
         switchQq.setOnSwitchStateChangeListener(new SwitchView.OnSwitchStateChangeListener() {
@@ -160,8 +168,6 @@ public class StartActivity extends BaseActivity{
             changeByUser = false;
             switchNotification.setOn(false);
         }
-        setWechatModel(Config.getConfig(this).getWechatMode());
-        setWechatDelay(Arrays.asList(delayTimes).indexOf(Config.getConfig(this).getWechatOpenDelayTime()));
         updateCount();
         updateEnableStatus();
     }
@@ -179,6 +185,9 @@ public class StartActivity extends BaseActivity{
     private void updateEnableStatus() {
         switchWechat.setOn(SharedPreferencesUtil.getBoolean(this, Config.KEY_WECHAT_ENABLE));
         switchQq.setOn(SharedPreferencesUtil.getBoolean(this, Config.KEY_QQ_ENABLE));
+        setWechatModel(Config.getConfig(this).getWechatMode());
+        setWechatDelay(Arrays.asList(delayTimes).indexOf(Config.getConfig(this).getWechatOpenDelayTime()));
+        switchWechatScreen.setOn(SharedPreferencesUtil.getBoolean(this, Config.KEY_WECHAT_SCREEN));
     }
 
     @OnClick(R.id.ll_guide)

@@ -27,6 +27,7 @@ public class Config {
     public static final String KEY_WECHAT_DELAY_TIME = "KEY_WECHAT_DELAY_TIME";
     public static final String KEY_WECHAT_AFTER_GET_HONGBAO = "KEY_WECHAT_AFTER_GET_HONGBAO";
     public static final String KEY_WECHAT_MODE = "KEY_WECHAT_MODE";
+    public static final String KEY_WECHAT_SCREEN = "KEY_WECHAT_SCREEN";
 
 
     public static final int WX_AFTER_OPEN_HONGBAO = 0;//拆红包
@@ -61,6 +62,11 @@ public class Config {
         return SharedPreferencesUtil.getBoolean(mContext, KEY_WECHAT_ENABLE);
     }
 
+    /** 是否启动微信抢红包*/
+    public void setEnableWechat(boolean isOn) {
+        SharedPreferencesUtil.saveBoolean(mContext, KEY_WECHAT_ENABLE,isOn);
+    }
+
     /** 微信打开红包后的事件*/
     public int getWechatAfterOpenHongBaoEvent() {
         return SharedPreferencesUtil.getInt(mContext, KEY_WECHAT_AFTER_OPEN_HONGBAO);
@@ -89,6 +95,16 @@ public class Config {
     /** 设置抢微信红包的模式*/
     public void setWechatMode(int model) {
         SharedPreferencesUtil.saveIntWithDefault(mContext, KEY_WECHAT_MODE, model);
+    }
+
+    /** 获取抢微信红包的模式*/
+    public boolean getWechatScreen() {
+        return SharedPreferencesUtil.getBoolean(mContext, KEY_WECHAT_SCREEN);
+    }
+
+    /** 设置抢微信红包的模式*/
+    public void setWechatScreen(boolean isOn) {
+        SharedPreferencesUtil.saveBoolean(mContext, KEY_WECHAT_SCREEN, isOn);
     }
 
     /** 是否启动通知栏模式*/

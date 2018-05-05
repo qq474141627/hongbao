@@ -162,6 +162,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/line" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:padding="15dp">
+                <TextView
+                    style="@style/Page.TextStyle.Size45"
+                    android:textColor="@color/_333333"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="支持微信锁屏抢红包"/>
+                <com.opar.mobile.view.SwitchView
+                    android:id="@+id/switch_wechat_screen"
+                    android:layout_width="@dimen/xx130"
+                    android:layout_height="@dimen/xx80"
+                    android:layout_marginRight="@dimen/xx20"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    app:outerStrokeWidth="@dimen/xx2"
+                    app:shadowSpace="@dimen/xx5"
+                    app:tintColor="@color/default_color_new_green"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
 
             <LinearLayout
                 android:layout_width="match_parent"

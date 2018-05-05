@@ -23,6 +23,7 @@ import com.opar.hongbao.service.LuckyMoneyService;
 import com.opar.hongbao.util.AccessibilityHelper;
 import com.opar.hongbao.util.NotifyHelper;
 import com.opar.hongbao.util.SharedPreferencesUtil;
+import com.opar.mobile.utils.PhoneUtil;
 import com.opar.mobile.utils.StringUtil;
 
 import java.util.List;
@@ -214,9 +215,14 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
         if(!lock) {
             NotifyHelper.send(pendingIntent);
         } else {
-            NotifyHelper.showNotify(getContext(), String.valueOf(notification.tickerText), pendingIntent);
+            if(Config.getConfig(getContext()).getWechatScreen()){
+                //自动解锁，并抢红包
+                PhoneUtil.wakeUpAndUnlock(getContext());
+                NotifyHelper.send(pendingIntent);
+            }else{
+                NotifyHelper.showNotify(getContext(), String.valueOf(notification.tickerText), pendingIntent);
+            }
         }
-
         if(lock || getConfig().getWechatMode() != Config.WX_MODE_0) {
             NotifyHelper.playEffect(getContext(), getConfig());
         }
