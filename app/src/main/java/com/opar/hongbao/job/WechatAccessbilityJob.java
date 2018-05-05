@@ -23,6 +23,7 @@ import com.opar.hongbao.service.LuckyMoneyService;
 import com.opar.hongbao.util.AccessibilityHelper;
 import com.opar.hongbao.util.NotifyHelper;
 import com.opar.hongbao.util.SharedPreferencesUtil;
+import com.opar.mobile.utils.StringUtil;
 
 import java.util.List;
 //======================================================================
@@ -229,6 +230,8 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
             handleLuckyMoneyReceive();
         } else if("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI".equals(event.getClassName())) {
             mCurrentWindow = WINDOW_LUCKYMONEY_DETAIL;
+            //计算红包收益
+            updateWechatAmount();
             //拆完红包后看详细的纪录界面
             if(getConfig().getWechatAfterGetHongBaoEvent() == Config.WX_AFTER_GET_GOHOME) { //返回主界面，以便收到下一次的红包通知
                 AccessibilityHelper.performHome(getService());
@@ -306,13 +309,12 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
                     @Override
                     public void run() {
                         AccessibilityHelper.performClick(n);
+//                        updateWechatAmount();
                     }
                 }, sDelayTime);
             } else {
                 AccessibilityHelper.performClick(n);
-                int wechatSum = SharedPreferencesUtil.getInt(getContext(), Config.KEY_WECHAT_SUM);
-                wechatSum++;
-                SharedPreferencesUtil.saveInt(getContext(), Config.KEY_WECHAT_SUM, wechatSum);
+//                updateWechatAmount();
             }
         }
     }
@@ -388,6 +390,33 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
             mWechatPackageInfo = getContext().getPackageManager().getPackageInfo(WECHAT_PACKAGENAME, 0);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+
+    /** 更新微信包金额*/
+    private void updateWechatAmount() {
+        //更新数量
+        int wechatSum = SharedPreferencesUtil.getInt(getContext(), Config.KEY_WECHAT_SUM);
+        wechatSum++;
+        SharedPreferencesUtil.saveInt(getContext(), Config.KEY_WECHAT_SUM, wechatSum);
+
+        AccessibilityNodeInfo nodeInfo = getService().getRootInActiveWindow();
+        if(nodeInfo == null) {
+            Log.w(TAG, "rootWindow为空");
+            return;
+        }
+
+        AccessibilityNodeInfo targetNode = null;
+        String buttonId = "com.tencent.mm:id/bzd";
+        if(buttonId != null) {
+            targetNode = AccessibilityHelper.findNodeInfosById(nodeInfo, buttonId);
+        }
+
+        if(targetNode != null) {
+            //更新金额
+            float amount = StringUtil.parse2Double(targetNode.getText().toString());
+            float wechatAmount = SharedPreferencesUtil.getDouble(getContext(), Config.KEY_WECHAT_AMOUNT);
+            SharedPreferencesUtil.saveDouble(getContext(), Config.KEY_WECHAT_AMOUNT, StringUtil.parse2Double(String.valueOf(wechatAmount + amount)));
         }
     }
 }

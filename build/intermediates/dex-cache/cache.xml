@@ -3,11 +3,20 @@
 
     <item
         is-multidex="false"
+        jar="/Users/wangbo/.gradle/caches/modules-2/files-2.1/com.umeng.sdk/analytics/7.5.1/87f941df6ff642a699ab360873cb0f5088d8f938/analytics-7.5.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="87f941df6ff642a699ab360873cb0f5088d8f938">
+        <dex dex="/Users/wangbo/Desktop/cgtz/hongbao/app/build/intermediates/pre-dexed/opar/debug/analytics-7.5.1_8c493ee53c33d5e5e79c278ebbfa88d4e6ab3a24.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/wangbo/Desktop/cgtz/hongbao/common/build/intermediates/bundles/default/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="e27c32528b2a2cd608a8484c96af3799afc9f4f0">
+        sha1="2fcf05b8a62c77b276a5873cee3e3eb2387cab7f">
         <dex dex="/Users/wangbo/Desktop/cgtz/hongbao/app/build/intermediates/pre-dexed/opar/debug/classes_ea3b2522abc69334d81290f5cac903e32b535939.jar" />
     </item>
     <item
@@ -18,6 +27,15 @@
         revision="25.0.0"
         sha1="70a0244ba61a67486d6041d0b38f52cb28a0e4ac">
         <dex dex="/Users/wangbo/Desktop/cgtz/hongbao/app/build/intermediates/pre-dexed/debug/umeng-onlineconfig_v1.0.0_d1ebd3b03a2943b41d29816923789c3b13eca17b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wangbo/.gradle/caches/modules-2/files-2.1/com.umeng.sdk/common/1.5.1/e563fdc9fa4f7afc07e1249101cbb373f8f1cc04/common-1.5.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e563fdc9fa4f7afc07e1249101cbb373f8f1cc04">
+        <dex dex="/Users/wangbo/Desktop/cgtz/hongbao/app/build/intermediates/pre-dexed/opar/debug/common-1.5.1_f08179a122fbc5d0cb032ece505cf6f7c21bb197.jar" />
     </item>
 
 </items>

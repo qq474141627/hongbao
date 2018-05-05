@@ -36,6 +36,16 @@ public class SharedPreferencesUtil {
         return sp.getInt(key, 0);
     }
 
+    public static void saveDouble(Context con, String key, float value) {
+        SharedPreferences sp = con.getSharedPreferences(FILENAME, 0);
+        sp.edit().putFloat(key, value).commit();
+    }
+
+    public static float getDouble(Context con, String key) {
+        SharedPreferences sp = con.getSharedPreferences(FILENAME, 0);
+        return sp.getFloat(key, 0);
+    }
+
     public static int getIntWithDefault(Context con, String key, int value) {
         SharedPreferences sp = con.getSharedPreferences(FILENAME, 0);
         return sp.getInt(key, value);

@@ -173,7 +173,9 @@ public class StartActivity extends BaseActivity{
         int qqSum = SharedPreferencesUtil.getInt(this, Config.KEY_QQ_SUM);
         tvWechatCout.setText("微信红包："+wechatSum+"个");
         tvQqCout.setText("QQ红包："+qqSum+"个");
-        tvTotalCount.setText(wechatSum+qqSum+"个红包");
+
+        float amount = SharedPreferencesUtil.getDouble(this, Config.KEY_WECHAT_AMOUNT);
+        tvTotalCount.setText(amount+"元");
     }
 
     private void updateEnableStatus() {

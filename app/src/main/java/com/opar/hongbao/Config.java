@@ -13,7 +13,9 @@ import com.opar.hongbao.util.SharedPreferencesUtil;
 
 public class Config {
     public static final String KEY_WECHAT_SUM = "wechat_sum";
+    public static final String KEY_WECHAT_AMOUNT = "wechat_amount";
     public static final String KEY_QQ_SUM = "qq_sum";
+    public static final String KEY_QQ_AMOUNT = "qq_amount";
     public static final String KEY_WECHAT_ENABLE = "wechat_enable";
     public static final String KEY_QQ_ENABLE = "qq_enable";
     public static final String KEY_NOTIFY_SOUND = "KEY_NOTIFY_SOUND";//声音提醒
