@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
 import com.opar.hongbao.Config;
 import com.opar.hongbao.R;
 import com.opar.hongbao.service.LuckyMoneyNotificationService;
@@ -22,13 +21,12 @@ import com.opar.hongbao.util.EventBusMsg;
 import com.opar.hongbao.util.ISuccessCallBack;
 import com.opar.hongbao.util.SharedPreferencesUtil;
 import com.opar.mobile.base.BaseActivity;
-import com.opar.mobile.data.AdConfig;
-import com.opar.mobile.utils.LogUtils;
+import com.opar.mobile.data.BannerAdConfig;
+import com.opar.mobile.inteface.ICallBack;
 import com.opar.mobile.utils.ToastUtil;
+import com.opar.mobile.utils.UmUtil;
 import com.opar.mobile.view.NewsView;
 import com.opar.mobile.view.SwitchView;
-import com.opar.mobile.view.WonderfulView;
-import com.opar.mobile.view.dialog.WonderfulDialog;
 import com.umeng.onlineconfig.OnlineConfigAgent;
 
 import java.util.Arrays;
@@ -288,20 +286,19 @@ public class StartActivity extends BaseActivity{
     }
 
     private void getUMConfig(){
-        String AdConfigJson = OnlineConfigAgent.getInstance().getConfigParams(this,"AdConfig");
-        LogUtils.e(AdConfigJson);
-        try {
-            AdConfig adConfig = JSON.parseObject(AdConfigJson,AdConfig.class);
-            if(adConfig.isBannerAdOn() && adConfig.getBannerAd() != null){
-                llBanner.addView(new NewsView(this).setConfig(adConfig.getBannerAd()));
+        UmUtil.toAd(this, new ICallBack<BannerAdConfig>() {
+            @Override
+            public void onError() {
+
+            }
+
+            @Override
+            public void onSuccess(BannerAdConfig bannerAdConfig) {
+                llBanner.addView(new NewsView(context).setConfig(bannerAdConfig));
                 llBanner.setVisibility(View.VISIBLE);
             }
-            if(adConfig.isWonderAdOn() && adConfig.getWonderAd() != null){
-                new WonderfulDialog(this).showDialog(adConfig.getWonderAd());
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        });
+        UmUtil.toUpdate(this);
     }
 
 }
