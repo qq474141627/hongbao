@@ -173,7 +173,8 @@
                     android:textColor="@color/_333333"
                     android:layout_weight="1"
                     android:gravity="left"
-                    android:text="支持微信锁屏抢红包"/>
+                    android:singleLine="false"
+                    android:text="支持微信锁屏抢红包\n(请不要设置锁屏密码)"/>
                 <com.opar.mobile.view.SwitchView
                     android:id="@+id/switch_wechat_screen"
                     android:layout_width="@dimen/xx130"

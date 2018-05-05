@@ -77,7 +77,7 @@ public class StartActivity extends BaseActivity{
     LinearLayout llBanner;
 
     boolean changeByUser = true;
-    private final String[] WXModels = new String[] { "自动抢抢全部红包", "只自动抢单聊红包" ,"只自动抢群聊红包","只通知手动抢"};
+    private final String[] WXModels = new String[] { "自动抢红包", "只抢单聊红包" ,"只抢群聊红包","通知手动抢"};
     private final String[] delays = new String[] { "不延迟", "防作弊延迟0.2秒" ,"防作弊延迟0.5秒","防作弊延迟1秒"};
     private final Integer[] delayTimes = new Integer[] { 0, 200 ,500,1000};
 
