@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.opar.mobile.data.AdConfig;
@@ -20,6 +21,8 @@ public class UmUtil {
     public static void toAd(Activity context, ICallBack<BannerAdConfig> iCallBack){
         //广告
         String AdConfigJson = OnlineConfigAgent.getInstance().getConfigParams(context,"AdConfig");
+        if(TextUtils.isEmpty(AdConfigJson))
+            return;
         LogUtils.e(AdConfigJson);
         try {
             AdConfig adConfig = JSON.parseObject(AdConfigJson,AdConfig.class);
@@ -37,6 +40,9 @@ public class UmUtil {
     public static void toUpdate(final Context context){
         //升级提示
         String UpdateAppConfigJson = OnlineConfigAgent.getInstance().getConfigParams(context,"UpdateAppConfig");
+        if(TextUtils.isEmpty(UpdateAppConfigJson)){
+            return;
+        }
         LogUtils.e(UpdateAppConfigJson);
         try {
             final UpdateAppConfig updateAppConfig = JSON.parseObject(UpdateAppConfigJson,UpdateAppConfig.class);
