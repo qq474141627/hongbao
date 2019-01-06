@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.opar.hongbao.R;
-import com.opar.mobile.base.BaseActivity;
+import com.opar.hongbao.base.BaseActivity;
 
 import butterknife.BindView;
 
@@ -26,6 +26,7 @@ public class GuideActivity extends BaseActivity {
 
     @BindView(R.id.view_pager)
     ViewPager viewPager;
+
 
     private String[] imgs = new String[]{"open_service_tips"};
 

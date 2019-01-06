@@ -18,13 +18,13 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 
-import com.opar.hongbao.Config;
+import com.opar.hongbao.entity.Config;
 import com.opar.hongbao.service.LuckyMoneyService;
-import com.opar.hongbao.util.AccessibilityHelper;
-import com.opar.hongbao.util.NotifyHelper;
-import com.opar.hongbao.util.SharedPreferencesUtil;
-import com.opar.mobile.utils.PhoneUtil;
-import com.opar.mobile.utils.StringUtil;
+import com.opar.hongbao.utils.AccessibilityHelper;
+import com.opar.hongbao.utils.NotifyHelper;
+import com.opar.hongbao.utils.SharedPreferencesUtil;
+import com.opar.hongbao.utils.PhoneUtil;
+import com.opar.hongbao.utils.StringUtil;
 
 import java.util.List;
 //======================================================================

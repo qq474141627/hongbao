@@ -13,10 +13,10 @@ import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
 
 
-import com.opar.hongbao.Config;
+import com.opar.hongbao.entity.Config;
 import com.opar.hongbao.job.AccessbilityJob;
 import com.opar.hongbao.job.WechatAccessbilityJob;
-import com.opar.hongbao.util.EventBusMsg;
+import com.opar.hongbao.utils.EventBusMsg;
 
 import java.util.ArrayList;
 import java.util.Iterator;

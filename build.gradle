@@ -7,9 +7,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
 
@@ -24,4 +21,17 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    versionCode = 1
+    versionName = '1.0.0'
+    compileSdkVersion = 28
+    buildToolsVersion = '28.0.3'
+    minSdkVersion = 16
+    targetSdkVersion = 26
+    android_support_version = '27.1.1'
+    dependencies = [
+            "appcompat-v7": "com.android.support:appcompat-v7:27.1.1",
+    ]
 }

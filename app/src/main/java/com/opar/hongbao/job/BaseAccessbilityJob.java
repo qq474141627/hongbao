@@ -2,7 +2,7 @@ package com.opar.hongbao.job;
 
 import android.content.Context;
 
-import com.opar.hongbao.Config;
+import com.opar.hongbao.entity.Config;
 import com.opar.hongbao.service.LuckyMoneyService;
 //======================================================================
 //        All rights reserved

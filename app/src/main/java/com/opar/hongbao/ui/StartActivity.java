@@ -13,21 +13,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.opar.hongbao.Config;
 import com.opar.hongbao.R;
+import com.opar.hongbao.entity.BannerAdConfig;
+import com.opar.hongbao.entity.Config;
 import com.opar.hongbao.service.LuckyMoneyNotificationService;
 import com.opar.hongbao.service.LuckyMoneyService;
-import com.opar.hongbao.util.EventBusMsg;
-import com.opar.hongbao.util.ISuccessCallBack;
-import com.opar.hongbao.util.SharedPreferencesUtil;
-import com.opar.mobile.base.BaseActivity;
-import com.opar.mobile.data.BannerAdConfig;
-import com.opar.mobile.inteface.ICallBack;
-import com.opar.mobile.utils.ToastUtil;
-import com.opar.mobile.utils.UmUtil;
-import com.opar.mobile.view.NewsView;
-import com.opar.mobile.view.SwitchView;
-import com.umeng.onlineconfig.OnlineConfigAgent;
+import com.opar.hongbao.utils.EventBusMsg;
+import com.opar.hongbao.utils.ISuccessCallBack;
+import com.opar.hongbao.utils.SharedPreferencesUtil;
+import com.opar.hongbao.base.BaseActivity;
+import com.opar.hongbao.utils.ToastUtil;
+import com.opar.hongbao.utils.UmUtil;
+import com.opar.hongbao.view.NewsView;
+import com.opar.hongbao.view.SwitchView;
 
 import java.util.Arrays;
 
@@ -91,8 +89,6 @@ public class StartActivity extends BaseActivity{
         setTitle(R.string.app_name);
         setLeftBtn(false,null);
         EventBus.getDefault().register(this);
-//        OnlineConfigAgent.getInstance().setDebugMode(true);
-        OnlineConfigAgent.getInstance().updateOnlineConfig(this);
         switchService.setOnSwitchStateChangeListener(new SwitchView.OnSwitchStateChangeListener() {
             @Override
             public void onSwitchStateChange(boolean isOn) {
@@ -295,12 +291,7 @@ public class StartActivity extends BaseActivity{
     }
 
     private void getUMConfig(){
-        UmUtil.toAd(this, new ICallBack<BannerAdConfig>() {
-            @Override
-            public void onError() {
-
-            }
-
+        UmUtil.toAd(this, new ISuccessCallBack<BannerAdConfig>() {
             @Override
             public void onSuccess(BannerAdConfig bannerAdConfig) {
                 llBanner.addView(new NewsView(context).setConfig(bannerAdConfig));

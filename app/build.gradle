@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '28.0.3'
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
     defaultConfig {
         applicationId "com.opar.hongbao"
-        minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
@@ -47,15 +47,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    //移除lint检查出的error
+    // 移除lint检查的error
     lintOptions {
-        checkReleaseBuilds false
-        // Or, if you prefer, you can continue to check for errors in release builds,
-        // but continue the build even when errors are found:
         abortOnError false
-
-        // butter knife
-        disable 'InvalidPackage'
+        checkReleaseBuilds false
+        // 防止在发布的时候出现因MissingTranslation导致Build Failed!
+        disable 'MissingTranslation'
     }
 
 }
@@ -63,6 +60,16 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation "com.android.support:support-v4:${rootProject.android_support_version}"
     implementation 'de.greenrobot:eventbus:3.0.0-beta1'
-    implementation project(path: ':common')
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    implementation 'com.umeng.sdk:common:latest.integration'
+    implementation 'com.umeng.sdk:analytics:latest.integration'
+    implementation 'com.github.lzyzsd:jsbridge:1.0.4'
+    implementation 'com.alibaba:fastjson:1.1.46.android'
+    implementation 'com.bigkoo:convenientbanner:2.0.5'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.makeramen:roundedimageview:2.2.1'
 }

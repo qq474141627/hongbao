@@ -1,14 +1,13 @@
 package com.opar.hongbao.service;
 
 import android.annotation.TargetApi;
-import android.app.Notification;
 import android.os.Build;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 
 
-import com.opar.hongbao.Config;
-import com.opar.hongbao.util.EventBusMsg;
+import com.opar.hongbao.entity.Config;
+import com.opar.hongbao.utils.EventBusMsg;
 
 import de.greenrobot.event.EventBus;
 //======================================================================
